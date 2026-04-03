@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact Us — ShopTalk Blog</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+  <nav class="navbar">
+    <a href="index.html" class="logo">Shop<span>Talk</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="posts.html">Posts</a></li>
+      <li><a href="about.html">About Us</a></li>
+      <li><a href="contact.html" class="active">Contact</a></li>
+    </ul>
+    <button class="hamburger" onclick="toggleMenu()">&#9776;</button>
+  </nav>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html">Home</a>
+    <a href="posts.html">Posts</a>
+    <a href="about.html">About Us</a>
+    <a href="contact.html">Contact</a>
+  </div>
+
+  <!-- PAGE HEADER -->
+  <div class="page-header">
+    <h1>Get in Touch</h1>
+    <p>Have a question, pitch, or collaboration idea? We'd love to hear from you.</p>
+  </div>
+
+  <!-- CONTACT LAYOUT -->
+  <section class="section contact-section">
+
+    <!-- CONTACT FORM -->
+    <div class="contact-form-wrap">
+      <h2>Send Us a Message</h2>
+      <div id="formSuccess" class="form-success" style="display:none">
+        ✅ Message sent! We'll get back to you within 24 hours.
+      </div>
+      <div class="contact-form" id="contactForm">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Your Name *</label>
+            <input type="text" id="name" placeholder="Ali Hassan" />
+            <span class="err" id="nameErr"></span>
+          </div>
+          <div class="form-group">
+            <label>Email Address *</label>
+            <input type="email" id="email" placeholder="ali@example.com" />
+            <span class="err" id="emailErr"></span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Subject *</label>
+          <input type="text" id="subject" placeholder="Guest post submission / Partnership / General query" />
+          <span class="err" id="subjectErr"></span>
+        </div>
+        <div class="form-group">
+          <label>Topic</label>
+          <select id="topic">
+            <option value="">Select a topic (optional)</option>
+            <option>Guest Post Submission</option>
+            <option>Advertising / Sponsorship</option>
+            <option>Content Collaboration</option>
+            <option>Article Correction</option>
+            <option>General Question</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Message *</label>
+          <textarea id="message" rows="6" placeholder="Tell us what's on your mind..."></textarea>
+          <span class="err" id="messageErr"></span>
+        </div>
+        <button class="btn-primary" onclick="submitForm()">Send Message</button>
+      </div>
+    </div>
+
+    <!-- CONTACT INFO -->
+    <div class="contact-info">
+      <h2>Contact Info</h2>
+      <div class="info-card">
+        <span class="info-icon">📧</span>
+        <div>
+          <h4>Email</h4>
+          <p>hello@shoptalkblog.com</p>
+        </div>
+      </div>
+      <div class="info-card">
+        <span class="info-icon">🐦</span>
+        <div>
+          <h4>Twitter / X</h4>
+          <p>@ShopTalkBlog</p>
+        </div>
+      </div>
+      <div class="info-card">
+        <span class="info-icon">💼</span>
+        <div>
+          <h4>LinkedIn</h4>
+          <p>linkedin.com/company/shoptalkblog</p>
+        </div>
+      </div>
+      <div class="info-card">
+        <span class="info-icon">⏱️</span>
+        <div>
+          <h4>Response Time</h4>
+          <p>Usually within 24 hours on weekdays</p>
+        </div>
+      </div>
+
+      <div class="guest-post-box">
+        <h3>✍️ Want to Write for Us?</h3>
+        <p>We welcome guest posts on e-commerce, SEO, marketing, and Shopify. Read our <a href="#">contribution guidelines</a> before reaching out.</p>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- FAQ -->
+  <section class="section faq-section">
+    <h2 class="center-title">Frequently Asked Questions</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Do you accept guest posts? <span>+</span></button>
+        <div class="faq-a">Yes! We accept well-researched, original content on e-commerce topics. Please reach out via the contact form with your topic idea first.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Can I advertise on ShopTalk? <span>+</span></button>
+        <div class="faq-a">We offer sponsored content and newsletter ad placements. Email us for our media kit and current rates.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">How often do you publish new content? <span>+</span></button>
+        <div class="faq-a">We publish 2–3 new articles every week, plus a curated newsletter every Tuesday morning.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Can you review my store? <span>+</span></button>
+        <div class="faq-a">We occasionally feature store teardowns in our articles. Submit your store via the contact form under "Content Collaboration".</div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a href="index.html" class="logo">Shop<span>Talk</span></a>
+        <p>Your go-to resource for e-commerce growth strategies.</p>
+      </div>
+      <div class="footer-links">
+        <h4>Pages</h4>
+        <a href="index.html">Home</a>
+        <a href="posts.html">Posts</a>
+        <a href="about.html">About Us</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </div>
+    <p class="copyright">© 2025 ShopTalk Blog. Built with ❤️ on GitHub Pages.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
