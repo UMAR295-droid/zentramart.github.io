@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ShopTalk — E-Commerce Blog</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="navbar">
+    <a href="index.html" class="logo">Shop<span>Talk</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="posts.html">Posts</a></li>
+      <li><a href="about.html">About Us</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <button class="hamburger" onclick="toggleMenu()">&#9776;</button>
+  </nav>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html">Home</a>
+    <a href="posts.html">Posts</a>
+    <a href="about.html">About Us</a>
+    <a href="contact.html">Contact</a>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <span class="hero-tag">E-Commerce Insights</span>
+      <h1>Grow Your<br/><em>Online Store</em><br/>Smarter</h1>
+      <p>Expert tips on SEO, conversion, product marketing, and everything in between — curated for e-commerce entrepreneurs.</p>
+      <div class="hero-btns">
+        <a href="posts.html" class="btn-primary">Read Articles</a>
+        <a href="about.html" class="btn-outline">Our Story</a>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><span>120+</span><p>Articles</p></div>
+      <div class="stat"><span>50K</span><p>Readers</p></div>
+      <div class="stat"><span>8 yrs</span><p>Experience</p></div>
+    </div>
+  </section>
+
+  <!-- FEATURED POSTS -->
+  <section class="section">
+    <div class="section-header">
+      <h2>Featured Articles</h2>
+      <a href="posts.html" class="see-all">See All →</a>
+    </div>
+    <div class="cards-grid">
+      <article class="card featured-card">
+        <div class="card-img" style="background:#f4a261"></div>
+        <div class="card-body">
+          <span class="tag">SEO</span>
+          <h3>10 SEO Hacks to Rank Your Product Pages in 2025</h3>
+          <p>Learn proven techniques to push your product listings to the top of Google search results without paid ads.</p>
+          <a href="posts.html" class="read-more">Read More →</a>
+        </div>
+      </article>
+      <article class="card">
+        <div class="card-img" style="background:#2a9d8f"></div>
+        <div class="card-body">
+          <span class="tag">Conversion</span>
+          <h3>How to Cut Cart Abandonment by 40%</h3>
+          <p>Simple UX changes and email workflows that bring customers back to complete their purchases.</p>
+          <a href="posts.html" class="read-more">Read More →</a>
+        </div>
+      </article>
+      <article class="card">
+        <div class="card-img" style="background:#e76f51"></div>
+        <div class="card-body">
+          <span class="tag">Marketing</span>
+          <h3>Building a Profitable Email List from Scratch</h3>
+          <p>Step-by-step strategy to grow, segment, and monetize your subscriber base for your online store.</p>
+          <a href="posts.html" class="read-more">Read More →</a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- CATEGORIES -->
+  <section class="section categories-section">
+    <h2 class="center-title">Browse by Category</h2>
+    <div class="categories-grid">
+      <a href="posts.html" class="category-card" style="--c:#f4a261">📦 Product Strategy</a>
+      <a href="posts.html" class="category-card" style="--c:#2a9d8f">🔍 SEO & Traffic</a>
+      <a href="posts.html" class="category-card" style="--c:#e76f51">💌 Email Marketing</a>
+      <a href="posts.html" class="category-card" style="--c:#457b9d">📊 Analytics</a>
+      <a href="posts.html" class="category-card" style="--c:#6a4c93">🛒 Shopify Tips</a>
+      <a href="posts.html" class="category-card" style="--c:#1d3557">💰 Pricing</a>
+    </div>
+  </section>
+
+  <!-- NEWSLETTER -->
+  <section class="newsletter">
+    <h2>Stay Ahead of the Curve</h2>
+    <p>Join 50,000+ e-commerce founders getting weekly insights straight to their inbox.</p>
+    <div class="newsletter-form">
+      <input type="email" placeholder="your@email.com" />
+      <button>Subscribe</button>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a href="index.html" class="logo">Shop<span>Talk</span></a>
+        <p>Your go-to resource for e-commerce growth strategies.</p>
+      </div>
+      <div class="footer-links">
+        <h4>Pages</h4>
+        <a href="index.html">Home</a>
+        <a href="posts.html">Posts</a>
+        <a href="about.html">About Us</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="footer-links">
+        <h4>Topics</h4>
+        <a href="posts.html">SEO</a>
+        <a href="posts.html">Marketing</a>
+        <a href="posts.html">Shopify</a>
+        <a href="posts.html">Analytics</a>
+      </div>
+    </div>
+    <p class="copyright">© 2025 ShopTalk Blog. Built with ❤️ on GitHub Pages.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
