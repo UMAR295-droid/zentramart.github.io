@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Posts — ShopTalk Blog</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+  <nav class="navbar">
+    <a href="index.html" class="logo">Shop<span>Talk</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="posts.html" class="active">Posts</a></li>
+      <li><a href="about.html">About Us</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <button class="hamburger" onclick="toggleMenu()">&#9776;</button>
+  </nav>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html">Home</a>
+    <a href="posts.html">Posts</a>
+    <a href="about.html">About Us</a>
+    <a href="contact.html">Contact</a>
+  </div>
+
+  <!-- PAGE HEADER -->
+  <div class="page-header">
+    <h1>All Articles</h1>
+    <p>Browse expert insights on e-commerce, marketing, and growth.</p>
+  </div>
+
+  <!-- FILTER BAR -->
+  <div class="filter-bar">
+    <button class="filter-btn active" onclick="filterPosts('all', this)">All</button>
+    <button class="filter-btn" onclick="filterPosts('seo', this)">SEO</button>
+    <button class="filter-btn" onclick="filterPosts('marketing', this)">Marketing</button>
+    <button class="filter-btn" onclick="filterPosts('shopify', this)">Shopify</button>
+    <button class="filter-btn" onclick="filterPosts('analytics', this)">Analytics</button>
+    <button class="filter-btn" onclick="filterPosts('conversion', this)">Conversion</button>
+  </div>
+
+  <!-- SEARCH BAR -->
+  <div class="search-wrap">
+    <input type="text" id="searchInput" placeholder="🔍  Search articles..." oninput="searchPosts()"/>
+  </div>
+
+  <!-- POSTS GRID -->
+  <section class="section posts-section">
+    <div class="cards-grid" id="postsGrid">
+
+      <article class="card" data-cat="seo">
+        <div class="card-img" style="background:#f4a261"></div>
+        <div class="card-body">
+          <span class="tag">SEO</span>
+          <span class="date">Jan 12, 2025</span>
+          <h3>10 SEO Hacks to Rank Your Product Pages in 2025</h3>
+          <p>Proven techniques to push your product listings to the top of Google without paid ads.</p>
+          <a href="#" class="read-more">Read More →</a>
+        </div>
+      </article>
+
+      <article class="card" data-cat="conversion">
+        <div class="card-img" style="background:#2a9d8f"></div>
+        <div class="card-body">
+          <span class="tag">Conversion</span>
+          <span class="date">Jan 20, 2025</span>
+          <h3>How to Cut Cart Abandonment by 40%</h3>
+          <p>Simple UX changes and email workflows that bring customers back to complete their purchase.</p>
+          <a href="#" class="read-more">Read More →</a>
+        </div>
+      </article>
+
+      <article class="card" data-cat="marketing">
+        <div class="card-img" style="background:#e76f51"></div>
+        <div class="card-body">
+          <span class="tag">Marketing</span>
+          <span class="date">Feb 3, 2025</span>
+          <h3>Building a Profitable Email List from Scratch</h3>
+          <p>Step-by-step strategy to grow, segment, and monetize your subscriber base.</p>
+          <a href="#" class="read-more">Read More →</a>
+        </div>
+      </article>
+
+      <article class="card" data-cat="shopify">
+        <div class="card-img" style="background:#457b9d"></div>
+        <div class="card-body">
+          <span class="tag">Shopify</span>
+          <span class="date">Feb 14, 2025</span>
+          <h3>Best Shopify Apps for 2025 You Need Right Now</h3>
+          <p>A curated list of must-have Shopify apps to automate, scale, and convert better.</p>
+          <a href="#" class="read-more">Read More →</a>
+        </div>
+      </article>
+
+      <article class="card" data-cat="analytics">
+        <div class="card-img" style="background:#6a4c93"></div>
+        <div class="card-body">
+          <span class="tag">Analytics</span>
+          <span class="date">Mar 2, 2025</span>
+          <h3>Understanding Your Store's Funnel with GA4</h3>
+          <p>How to set up Google Analytics 4 for e-commerce and read your conversion funnel reports.</p>
+          <a href="#" class="read-more">Read More →</a>
+        </div>
+      </article>
+
+      <article class="card" data-cat="seo">
+        <div class="card-img" style="background:#1d3557"></div>
+        <div class="card-body">
+          <span class="tag">SEO</span>
+          <span class="date">Mar 18, 2025</span>
+          <h3>Long-tail Keywords: The Secret Weapon for Niche Stores</h3>
+          <p>How to find and target low-competition keywords that drive high-intent buyer traffic.</p>
+          <a href="#" class="read-more">Read More →</a>
+        </div>
+      </article>
+
+      <article class="card" data-cat="marketing">
+        <div class="card-img" style="background:#e9c46a"></div>
+        <div class="card-body">
+          <span class="tag">Marketing</span>
+          <span class="date">Apr 5, 2025</span>
+          <h3>TikTok Shop vs Instagram — Which Wins for Your Brand?</h3>
+          <p>A head-to-head comparison of social commerce platforms for product-based businesses.</p>
+          <a href="#" class="read-more">Read More →</a>
+        </div>
+      </article>
+
+      <article class="card" data-cat="conversion">
+        <div class="card-img" style="background:#264653"></div>
+        <div class="card-body">
+          <span class="tag">Conversion</span>
+          <span class="date">Apr 22, 2025</span>
+          <h3>Product Page Copywriting That Actually Converts</h3>
+          <p>Framework for writing product descriptions that answer objections and drive purchases.</p>
+          <a href="#" class="read-more">Read More →</a>
+        </div>
+      </article>
+
+      <article class="card" data-cat="shopify">
+        <div class="card-img" style="background:#a8dadc"></div>
+        <div class="card-body">
+          <span class="tag">Shopify</span>
+          <span class="date">May 10, 2025</span>
+          <h3>Setting Up Shopify Markets for International Sales</h3>
+          <p>How to expand your Shopify store globally with multi-currency and localization tools.</p>
+          <a href="#" class="read-more">Read More →</a>
+        </div>
+      </article>
+
+    </div>
+    <p id="noResults" style="display:none; text-align:center; color:#888; padding:2rem;">No articles found. Try a different search.</p>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a href="index.html" class="logo">Shop<span>Talk</span></a>
+        <p>Your go-to resource for e-commerce growth strategies.</p>
+      </div>
+      <div class="footer-links">
+        <h4>Pages</h4>
+        <a href="index.html">Home</a>
+        <a href="posts.html">Posts</a>
+        <a href="about.html">About Us</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </div>
+    <p class="copyright">© 2025 ShopTalk Blog. Built with ❤️ on GitHub Pages.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
