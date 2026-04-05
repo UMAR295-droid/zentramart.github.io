@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Posts — ShopTalk Blog</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    /* ── Reset & Base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0d0d0d;
+      --surface: #161616;
+      --border: #2a2a2a;
+      --accent: #ff6b35;
+      --accent2: #f7c59f;
+      --text: #f0ece4;
+      --muted: #888;
+      --radius: 14px;
+    }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* ── Navbar ── */
+    .navbar {
+      position: sticky; top: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem 2.5rem;
+      background: rgba(13,13,13,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .logo { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--text); text-decoration: none; }
+    .logo span { color: var(--accent); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: .9rem; letter-spacing: .03em; transition: color .2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--text); }
+    .hamburger { display: none; background: none; border: none; color: var(--text); font-size: 1.5rem; cursor: pointer; }
+    .mobile-menu { display: none; flex-direction: column; background: var(--surface); padding: 1rem 2rem; gap: .8rem; border-bottom: 1px solid var(--border); }
+    .mobile-menu a { color: var(--muted); text-decoration: none; font-size: 1rem; }
+    .mobile-menu.open { display: flex; }
+    @media(max-width:700px){ .nav-links{display:none} .hamburger{display:block} }
+
+    /* ── Page Header ── */
+    .page-header {
+      text-align: center;
+      padding: 4rem 2rem 2rem;
+      background: radial-gradient(ellipse at 50% 0%, #ff6b3520 0%, transparent 70%);
+    }
+    .page-header h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.2rem, 5vw, 4rem); letter-spacing: -.02em; }
+    .page-header p { color: var(--muted); margin-top: .6rem; font-size: 1.05rem; }
+
+    /* ── Filter + Search ── */
+    .controls {
+      display: flex; flex-wrap: wrap; gap: 1rem;
+      justify-content: center; align-items: center;
+      padding: 1.5rem 2rem;
+      border-bottom: 1px solid var(--border);
+      position: sticky; top: 61px; z-index: 90;
+      background: rgba(13,13,13,0.95);
+      backdrop-filter: blur(8px);
+    }
+    .filter-btn {
+      background: transparent; border: 1px solid var(--border);
+      color: var(--muted); padding: .45rem 1.1rem;
+      border-radius: 999px; cursor: pointer; font-size: .85rem;
+      font-family: 'DM Sans', sans-serif; transition: all .2s;
+    }
+    .filter-btn:hover { border-color: var(--accent); color: var(--accent); }
+    .filter-btn.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+    .search-input {
+      background: var(--surface); border: 1px solid var(--border);
+      color: var(--text); padding: .45rem 1.2rem;
+      border-radius: 999px; font-size: .9rem; font-family: 'DM Sans', sans-serif;
+      width: 220px; outline: none; transition: border-color .2s;
+    }
+    .search-input:focus { border-color: var(--accent); }
+
+    /* ── Category Section ── */
+    .category-section { padding: 3rem 2.5rem 1rem; max-width: 1400px; margin: 0 auto; }
+    .category-label {
+      display: flex; align-items: center; gap: .8rem;
+      margin-bottom: 1.5rem;
+    }
+    .category-label h2 { font-family: 'Playfair Display', serif; font-size: 1.6rem; }
+    .category-label .cat-tag {
+      font-size: .75rem; letter-spacing: .1em; text-transform: uppercase;
+      padding: .25rem .8rem; border-radius: 999px; font-weight: 500;
+    }
+    .category-label .line { flex: 1; height: 1px; background: var(--border); }
+
+    /* Category colours */
+    .cat-seo        { background: #ff6b3520; color: #ff6b35; border: 1px solid #ff6b3540; }
+    .cat-marketing  { background: #f7c59f20; color: #f7c59f; border: 1px solid #f7c59f40; }
+    .cat-shopify    { background: #96bf4820; color: #96bf48; border: 1px solid #96bf4840; }
+    .cat-analytics  { background: #7b68ee20; color: #a89cf7; border: 1px solid #7b68ee40; }
+    .cat-conversion { background: #2dd4bf20; color: #2dd4bf; border: 1px solid #2dd4bf40; }
+
+    /* ── Cards Grid ── */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: transform .25s, box-shadow .25s, border-color .25s;
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+      display: flex; flex-direction: column;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(0,0,0,.5);
+      border-color: #444;
+    }
+    .card-img {
+      width: 100%; height: 200px;
+      object-fit: cover; display: block;
+      transition: transform .4s;
+    }
+    .card:hover .card-img { transform: scale(1.04); }
+    .card-img-wrap { overflow: hidden; }
+    .card-body { padding: 1.2rem 1.4rem 1.5rem; flex: 1; display: flex; flex-direction: column; gap: .5rem; }
+    .card-meta { display: flex; align-items: center; gap: .6rem; }
+    .tag {
+      font-size: .7rem; letter-spacing: .08em; text-transform: uppercase;
+      padding: .2rem .65rem; border-radius: 999px; font-weight: 600;
+    }
+    .date { font-size: .78rem; color: var(--muted); }
+    .card h3 { font-family: 'Playfair Display', serif; font-size: 1.05rem; line-height: 1.4; }
+    .card p { font-size: .88rem; color: var(--muted); line-height: 1.6; flex: 1; }
+    .read-more {
+      display: inline-flex; align-items: center; gap: .3rem;
+      font-size: .82rem; font-weight: 500; color: var(--accent);
+      margin-top: .4rem; text-decoration: none; transition: gap .2s;
+    }
+    .card:hover .read-more { gap: .6rem; }
+
+    /* ── No Results ── */
+    #noResults { display: none; text-align: center; color: var(--muted); padding: 3rem; font-size: 1rem; }
+
+    /* ── Footer ── */
+    .footer { border-top: 1px solid var(--border); padding: 3rem 2.5rem 1.5rem; margin-top: 4rem; }
+    .footer-inner { display: flex; flex-wrap: wrap; gap: 2rem; justify-content: space-between; margin-bottom: 2rem; }
+    .footer-brand p { color: var(--muted); font-size: .9rem; margin-top: .5rem; max-width: 260px; }
+    .footer-links h4 { font-size: .85rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-bottom: .8rem; }
+    .footer-links a { display: block; color: var(--muted); text-decoration: none; font-size: .9rem; margin-bottom: .4rem; transition: color .2s; }
+    .footer-links a:hover { color: var(--text); }
+    .copyright { color: var(--muted); font-size: .8rem; text-align: center; }
+
+    @media(max-width:600px){
+      .category-section { padding: 2rem 1rem .5rem; }
+      .controls { padding: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <a href="index.html" class="logo">Shop<span>Talk</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="posts.html" class="active">Posts</a></li>
+      <li><a href="about.html">About Us</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <button class="hamburger" onclick="document.getElementById('mobileMenu').classList.toggle('open')">&#9776;</button>
+  </nav>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html">Home</a>
+    <a href="posts.html">Posts</a>
+    <a href="about.html">About Us</a>
+    <a href="contact.html">Contact</a>
+  </div>
+
+  <!-- PAGE HEADER -->
+  <div class="page-header">
+    <h1>All Articles</h1>
+    <p>Browse expert insights on e-commerce, marketing, and growth.</p>
+  </div>
+
+  <!-- CONTROLS -->
+  <div class="controls">
+    <button class="filter-btn active" onclick="filterPosts('all',this)">All</button>
+    <button class="filter-btn" onclick="filterPosts('seo',this)">SEO</button>
+    <button class="filter-btn" onclick="filterPosts('marketing',this)">Marketing</button>
+    <button class="filter-btn" onclick="filterPosts('shopify',this)">Shopify</button>
+    <button class="filter-btn" onclick="filterPosts('analytics',this)">Analytics</button>
+    <button class="filter-btn" onclick="filterPosts('conversion',this)">Conversion</button>
+    <input class="search-input" id="searchInput" type="text" placeholder="🔍  Search articles…" oninput="searchPosts()"/>
+  </div>
+
+  <!-- ════════════════════════════════
+       SEO CATEGORY
+  ═══════════════════════════════════ -->
+  <section class="category-section" id="cat-seo" data-cat="seo">
+    <div class="category-label">
+      <h2>SEO</h2>
+      <span class="cat-tag cat-seo">Search Engine</span>
+      <span class="line"></span>
+    </div>
+    <div class="cards-grid">
+
+      <a class="card" href="post-seo-hacks.html" data-cat="seo" data-title="10 SEO Hacks to Rank Your Product Pages in 2025">
+        <div class="card-img-wrap">
+          <img class="card-img" src="https://images.unsplash.com/photo-1432888498266-38ffec3eaf0a?w=600&auto=format&fit=crop" alt="SEO laptop analytics" loading="lazy"/>
+        </div>
+        <div class="card-body">
+          <div class="card-meta"><span class="tag cat-seo">SEO</span><span class="date">Jan 12, 2025</span></div>
+          <h3>10 SEO Hacks to Rank Your Product Pages in 2025</h3>
+          <p>Proven techniques to push your product listings to the top of Google without paid ads.</p>
+          <span class="read-more">Read More →</span>
+        </div>
+      </a>
+
+      <a class="card" href="post-longtail.html" data-cat="seo" data-title="Long-tail Keywords: The Secret Weapon for Niche Stores">
+        <div class="card-img-wrap">
+          <img class="card-img" src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=600&auto=format&fit=crop" alt="keyword research" loading="lazy"/>
+        </div>
+        <div class="card-body">
+          <div class="card-meta"><span class="tag cat-seo">SEO</span><span class="date">Mar 18, 2025</span></div>
+          <h3>Long-tail Keywords: The Secret Weapon for Niche Stores</h3>
+          <p>How to find and target low-competition keywords that drive high-intent buyer traffic.</p>
+          <span class="read-more">Read More →</span>
+        </div>
+      </a>
+
+      <a class="card" href="post-seo-images.html" data-cat="seo" data-title="Image SEO: How Alt Text Boosts Your Rankings">
+        <div class="card-img-wrap">
+          <img class="card-img" src="https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=600&auto=format&fit=crop" alt="image optimisation" loading="lazy"/>
+        </div>
+        <div class="card-body">
+          <div class="card-meta"><span class="tag cat-seo">SEO</span><span class="date">Apr 30, 2025</span></div>
+          <h3>Image SEO: How Alt Text Boosts Your Rankings</h3>
+          <p>A simple guide to optimising product images so they appear in Google image search.</p>
+          <span class="read-more">Read More →</span>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════
+       MARKETING CATEGORY
+  ═══════════════════════════════════ -->
+  <section class="category-section" id="cat-marketing" data-cat="marketing">
+    <div class="category-label">
+      <h2>Marketing</h2>
+      <span class="cat-tag cat-marketing">Growth</span>
+      <span class="line"></span>
+    </div>
+    <div class="cards-grid">
+
+      <a class="card" href="post-email-list.html" data-cat="marketing" data-title="Building a Profitable Email List from Scratch">
+        <div class="card-img-wrap">
+          <img class="card-img" src="https://images.unsplash.com/photo-1596526131083-e8c633c948d2?w=600&auto=format&fit=crop" alt="email marketing" loading="lazy"/>
+        </div>
+        <div class="card-body">
+          <div class="card-meta"><span class="tag cat-marketing">Marketing</span><span class="date">Feb 3, 2025</span></div>
+          <h3>Building a Profitable Email List from Scratch</h3>
+          <p>Step-by-step strategy to grow, segment, and monetize your subscriber base.</p>
+          <span class="read-more">Read More →</span>
+        </div>
+      </a>
+
+      <a class="card" href="post-tiktok-vs-instagram.html" data-cat="marketing" data-title="TikTok Shop vs Instagram — Which Wins for Your Brand?">
+        <div class="card-img-wrap">
+          <img class="card-img" src="https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=600&auto=format&fit=crop" alt="social media marketing" loading="lazy"/>
+        </div>
+        <div class="card-body">
+          <div class="card-meta"><span class="tag cat-marketing">Marketing</span><span class="date">Apr 5, 2025</span></div>
+          <h3>TikTok Shop vs Instagram — Which Wins for Your Brand?</h3>
+          <p>A head-to-head comparison of social commerce platforms for product-based businesses.</p>
+          <span class="read-more">Read More →</span>
+        </div>
+      </a>
+
+      <a class="card" href="post-influencer.html" data-cat="marketing" data-title="Micro-Influencer Marketing on a $500 Budget">
+        <div class="card-img-wrap">
+          <img class="card-img" src="https://images.unsplash.com/photo-1557804506-669a67965ba0?w=600&auto=format&fit=crop" alt="influencer marketing" loading="lazy"/>
+        </div>
+        <div class="card-body">
+          <div class="card-meta"><span class="tag cat-marketing">Marketing</span><span class="date">May 20, 2025</span></div>
+          <h3>Micro-Influencer Marketing on a $500 Budget</h3>
+          <p>How small brands can leverage niche creators for massive ROI without overspending.</p>
+          <span class="read-more">Read More →</span>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════
+       SHOPIFY CATEGORY
+  ═══════════════════════════════════ -->
+  <section class="category-section" id="cat-shopify" data-cat="shopify">
+    <div class="category-label">
+      <h2>Shopify</h2>
+      <span class="cat-tag cat-shopify">Platform</span>
+      <span class="line"></span>
+    </div>
+    <div class="cards-grid">
+
+      <a class="card" href="post-shopify-apps.html" data-cat="shopify" data-title="Best Shopify Apps for 2025 You Need Right Now">
+        <div class="card-img-wrap">
+          <img class="card-img" src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&auto=format&fit=crop" alt="shopify store" loading="lazy"/>
+        </div>
+        <div class="card-body">
+          <div class="card-meta"><span class="tag cat-shopify">Shopify</span><span class="date">Feb 14, 2025</span></div>
+          <h3>Best Shopify Apps for 2025 You Need Right Now</h3>
+          <p>A curated list of must-have Shopify apps to automate, scale, and convert better.</p>
+          <span class="read-more">Read More →</span>
+        </div>
+      </a>
+
+      <a class="card" href="post-shopify-markets.html" data-cat="shopify" data-title="Setting Up Shopify Markets for International Sales">
+        <div class="card-img-wrap">
+          <img class="card-img" src="https://images.unsplash.com/photo-1526628953301-3e589a6a8b74?w=600&auto=format&fit=crop" alt="international ecommerce" loading="lazy"/>
+        </div>
+        <div class="card-body">
+          <div class="card-meta"><span class="tag cat-shopify">Shopify</span><span class="date">May 10, 2025</span></div>
+          <h3>Setting Up Shopify Markets for International Sales</h3>
+          <p>How to expand your Shopify store globally with multi-currency and localisation tools.</p>
+          <span class="read-more">Read More →</span>
+        </div>
+      </a>
+
+      <a class="card" href="post-shopify-speed.html" data-cat="shopify" data-title="Speed Up Your Shopify Store in 7 Steps">
+        <div class="card-img-wrap">
+          <img class="card-img" src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&auto=format&fit=crop" alt="store performance" loading="lazy"/>
+        </div>
+        <div class="card-body">
+          <div class="card-meta"><span class="tag cat-shopify">Shopify</span><span class="date">Jun 1, 2025</span></div>
+          <h3>Speed Up Your Shopify Store in 7 Steps</h3>
+          <p>Practical optimisations to improve Core Web Vitals and reduce bounce rates today.</p>
+          <span class="read-more">Read More →</span>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════
+       ANALYTICS CATEGORY
+  ═══════════════════════════════════ -->
+  <section class="category-section" id="cat-analytics" data-cat="analytics">
+    <div class="category-label">
+      <h2>Analytics</h2>
+      <span class="cat-tag cat-analytics">Data</span>
+      <span class="line"></span>
+    </div>
+    <div class="cards-grid">
+
+      <a class="card" href="post-ga4.html" data-cat="analytics" data-title="Understanding Your Store's Funnel with GA4">
+        <div class="card-img-wrap">
+          <img class="card-img" src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&auto=format&fit=crop" alt="analytics dashboard" loading="lazy"/>
+        </div>
+        <div class="card-body">
+          <div class="card-meta"><span class="tag cat-analytics">Analytics</span><span class="date">Mar 2, 2025</span></div>
+          <h3>Understanding Your Store's Funnel with GA4</h3>
+          <p>How to set up Google Analytics 4 for e-commerce and read your conversion funnel reports.</p>
+          <span class="read-more">Read More →</span>
+        </div>
+      </a>
+
+      <a class="card" href="post-heatmaps.html" data-cat="analytics" data-title="Heatmaps 101: See Where Customers Really Click">
+        <div class="card-img-wrap">
+          <img class="card-img" src="https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=600&auto=format&fit=crop" alt="heatmap data" loading="lazy"/>
+        </div>
+        <div class="card-body">
+          <div class="card-meta"><span class="tag cat-analytics">Analytics</span><span class="date">Apr 15, 2025</span></div>
+          <h3>Heatmaps 101: See Where Customers Really Click</h3>
+          <p>Using Hotjar and Microsoft Clarity to uncover UX blind spots on your product pages.</p>
+          <span class="read-more">Read More →</span>
+        </div>
+      </a>
+
+      <a class="card" href="post-ab-testing.html" data-cat="analytics" data-title="A/B Testing for Beginners: What to Test First">
+        <div class="card-img-wrap">
+          <img class="card-img" src="https://images.unsplash.com/photo-1533750516457-a7f992034fec?w=600&auto=format&fit=crop" alt="ab testing" loading="lazy"/>
+        </div>
+        <div class="card-body">
+          <div class="card-meta"><span class="tag cat-analytics">Analytics</span><span class="date">May 28, 2025</span></div>
+          <h3>A/B Testing for Beginners: What to Test First</h3>
+          <p>A framework for running your first split tests without a data science degree.</p>
+          <span class="read-more">Read More →</span>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════
+       CONVERSION CATEGORY
+  ═══════════════════════════════════ -->
+  <section class="category-section" id="cat-conversion" data-cat="conversion">
+    <div class="category-label">
+      <h2>Conversion</h2>
+      <span class="cat-tag cat-conversion">CRO</span>
+      <span class="line"></span>
+    </div>
+    <div class="cards-grid">
+
+      <a class="card" href="post-cart-abandonment.html" data-cat="conversion" data-title="How to Cut Cart Abandonment by 40%">
+        <div class="card-img-wrap">
+          <img class="card-img" src="https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=600&auto=format&fit=crop" alt="shopping cart" loading="lazy"/>
+        </div>
+        <div class="card-body">
+          <div class="card-meta"><span class="tag cat-conversion">Conversion</span><span class="date">Jan 20, 2025</span></div>
+          <h3>How to Cut Cart Abandonment by 40%</h3>
+          <p>Simple UX changes and email workflows that bring customers back to complete their purchase.</p>
+          <span class="read-more">Read More →</span>
+        </div>
+      </a>
+
+      <a class="card" href="post-copywriting.html" data-cat="conversion" data-title="Product Page Copywriting That Actually Converts">
+        <div class="card-img-wrap">
+          <img class="card-img" src="https://images.unsplash.com/photo-1455390582262-044cdead277a?w=600&auto=format&fit=crop" alt="copywriting" loading="lazy"/>
+        </div>
+        <div class="card-body">
+          <div class="card-meta"><span class="tag cat-conversion">Conversion</span><span class="date">Apr 22, 2025</span></div>
+          <h3>Product Page Copywriting That Actually Converts</h3>
+          <p>Framework for writing product descriptions that answer objections and drive purchases.</p>
+          <span class="read-more">Read More →</span>
+        </div>
+      </a>
+
+      <a class="card" href="post-social-proof.html" data-cat="conversion" data-title="Social Proof Strategies That Skyrocket Trust">
+        <div class="card-img-wrap">
+          <img class="card-img" src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=600&auto=format&fit=crop" alt="reviews trust" loading="lazy"/>
+        </div>
+        <div class="card-body">
+          <div class="card-meta"><span class="tag cat-conversion">Conversion</span><span class="date">Jun 10, 2025</span></div>
+          <h3>Social Proof Strategies That Skyrocket Trust</h3>
+          <p>How to collect, display, and leverage reviews and testimonials to remove buyer hesitation.</p>
+          <span class="read-more">Read More →</span>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <p id="noResults">No articles found. Try a different search term.</p>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a href="index.html" class="logo">Shop<span>Talk</span></a>
+        <p>Your go-to resource for e-commerce growth strategies.</p>
+      </div>
+      <div class="footer-links">
+        <h4>Pages</h4>
+        <a href="index.html">Home</a>
+        <a href="posts.html">Posts</a>
+        <a href="about.html">About Us</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </div>
+    <p class="copyright">© 2025 ShopTalk Blog. Built with ❤️ on GitHub Pages.</p>
+  </footer>
+
+  <script>
+    /* ── Filter by category ── */
+    function filterPosts(cat, btn) {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const sections = document.querySelectorAll('.category-section');
+      if (cat === 'all') {
+        sections.forEach(s => s.style.display = '');
+      } else {
+        sections.forEach(s => {
+          s.style.display = s.dataset.cat === cat ? '' : 'none';
+        });
+      }
+    }
+
+    /* ── Search across all cards ── */
+    function searchPosts() {
+      const query = document.getElementById('searchInput').value.toLowerCase().trim();
+      const cards = document.querySelectorAll('.card');
+      let visible = 0;
+
+      cards.forEach(card => {
+        const title = card.dataset.title?.toLowerCase() || card.querySelector('h3')?.textContent.toLowerCase() || '';
+        const body  = card.querySelector('p')?.textContent.toLowerCase() || '';
+        const cat   = card.dataset.cat?.toLowerCase() || '';
+        const match = !query || title.includes(query) || body.includes(query) || cat.includes(query);
+        card.style.display = match ? '' : 'none';
+        if (match) visible++;
+      });
+
+      // Show/hide entire sections if all cards within hidden
+      document.querySelectorAll('.category-section').forEach(sec => {
+        const visibleCards = [...sec.querySelectorAll('.card')].some(c => c.style.display !== 'none');
+        sec.style.display = visibleCards ? '' : 'none';
+      });
+
+      document.getElementById('noResults').style.display = visible === 0 ? 'block' : 'none';
+    }
+  </script>
+
+</body>
+</html>
